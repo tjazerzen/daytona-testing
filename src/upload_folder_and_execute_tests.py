@@ -109,6 +109,14 @@ def upload_conformance_tests_files(sandbox: Sandbox):
     print("change permissions result:", response.result)
 
 
+def run_conformance_tests_script(sandbox: Sandbox):
+    conformance_tests_cmd = f"./{CONFORMANCE_TESTS_SCRIPT_SANDBOX_PATH} {SANDBOX_TARGET_DIR} {CONFORMANCE_TESTS_SANDBOX_PATH}"
+    print(f"Executing conformance tests command: {conformance_tests_cmd}")
+    response = sandbox.process.exec(conformance_tests_cmd, cwd=SANDBOX_TARGET_DIR)
+    print("conformance tests response:", response.exit_code)
+    print("conformance tests result:", response.result)
+
+
 # Example usage
 if __name__ == "__main__":
     # Get the user root directory in the sandbox
@@ -124,6 +132,7 @@ if __name__ == "__main__":
 
         # uploading and running conformance tests
         upload_conformance_tests_files(sandbox)
+        run_conformance_tests_script(sandbox)
     finally:
         # Clean up the Sandbox
         daytona.remove(sandbox)
