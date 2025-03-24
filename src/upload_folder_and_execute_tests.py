@@ -1,7 +1,12 @@
 from daytona_sdk import Daytona, DaytonaConfig, CreateSandboxParams, Sandbox
 import os
+
+ROOT_DIR = "/home/daytona"
 BUILD_CODE_PATH = "build_code"
 SANDBOX_TARGET_DIR = f"{ROOT_DIR}/build_code"
+UNITTEST_SCRIPT_PATH = "run_unittests_python.sh"  # "/Users/tjazerzen/Documents/codeplain-ai/plain2code_client/test_scripts/run_unittests_python.sh"
+UNITTEST_SCRIPT_SANDBOX_NAME = "run_unittests_python.sh"
+UNITTEST_SCRIPT_SANDBOX_PATH = f"{SANDBOX_TARGET_DIR}/{UNITTEST_SCRIPT_SANDBOX_NAME}"
 
 
 def create_daytona_sandbox() -> tuple[Daytona, Sandbox]:
@@ -61,3 +66,17 @@ def upload_repo_to_sandbox(sandbox: Sandbox):
             sandbox.fs.upload_file(sandbox_file_path, content)
 
     print("File copying completed")
+
+
+def upload_unittest_files(sandbox: Sandbox):
+    with open(UNITTEST_SCRIPT_PATH, "rb") as file:
+        content = file.read()
+
+    sandbox.fs.upload_file(UNITTEST_SCRIPT_SANDBOX_PATH, content)
+
+    change_permissions_cmd = f"chmod +x {UNITTEST_SCRIPT_SANDBOX_PATH}"
+    print(f"Executing change permissions command: {change_permissions_cmd}")
+    response = sandbox.process.exec(change_permissions_cmd, cwd=SANDBOX_TARGET_DIR)
+    print("change permissions response:", response.exit_code)
+    print("change permissions result:", response.result)
+
