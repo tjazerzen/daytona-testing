@@ -19,3 +19,7 @@ Summary:
 - Executes `run_conformance_python.sh`
 - Executes `run_unittests_python.sh`
 - Cleans up the sandbox after tests are finished
+
+Further remarks:
+
+- run the code from the root of the repository because of the relative paths
