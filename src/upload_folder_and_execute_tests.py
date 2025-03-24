@@ -80,3 +80,12 @@ def upload_unittest_files(sandbox: Sandbox):
     print("change permissions response:", response.exit_code)
     print("change permissions result:", response.result)
 
+
+def run_unittest_script(sandbox: Sandbox):
+    unittest_cmd = f"./{UNITTEST_SCRIPT_SANDBOX_PATH} {SANDBOX_TARGET_DIR}"
+    print(f"Executing unittest command: {unittest_cmd}")
+    response = sandbox.process.exec(unittest_cmd, cwd=SANDBOX_TARGET_DIR)
+    print("unittest response:", response.exit_code)
+    print("unittest result:", response.result)
+
+
