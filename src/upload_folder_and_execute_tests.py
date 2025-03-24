@@ -7,6 +7,13 @@ SANDBOX_TARGET_DIR = f"{ROOT_DIR}/build_code"
 UNITTEST_SCRIPT_PATH = "run_unittests_python.sh"  # "/Users/tjazerzen/Documents/codeplain-ai/plain2code_client/test_scripts/run_unittests_python.sh"
 UNITTEST_SCRIPT_SANDBOX_NAME = "run_unittests_python.sh"
 UNITTEST_SCRIPT_SANDBOX_PATH = f"{SANDBOX_TARGET_DIR}/{UNITTEST_SCRIPT_SANDBOX_NAME}"
+CONFORMANCE_TESTS_SCRIPT_PATH = "run_conformance_tests_python.sh"  #  "/Users/tjazerzen/Documents/codeplain-ai/plain2code_client/test_scripts/run_conformance_tests_python.sh"
+CONFORMANCE_TESTS_SCRIPT_SANDBOX_NAME = "run_conformance_tests_python.sh"
+CONFORMANCE_TESTS_SCRIPT_SANDBOX_PATH = (
+    f"{SANDBOX_TARGET_DIR}/{CONFORMANCE_TESTS_SCRIPT_SANDBOX_NAME}"
+)
+CONFORMANCE_TESTS_FOLDER = "tests"
+CONFORMANCE_TESTS_SANDBOX_PATH = f"{SANDBOX_TARGET_DIR}/{CONFORMANCE_TESTS_FOLDER}"
 
 
 def create_daytona_sandbox() -> tuple[Daytona, Sandbox]:
@@ -89,6 +96,19 @@ def run_unittest_script(sandbox: Sandbox):
     print("unittest result:", response.result)
 
 
+def upload_conformance_tests_files(sandbox: Sandbox):
+    with open(CONFORMANCE_TESTS_SCRIPT_PATH, "rb") as file:
+        content = file.read()
+
+    sandbox.fs.upload_file(CONFORMANCE_TESTS_SCRIPT_SANDBOX_PATH, content)
+
+    change_permissions_cmd = f"chmod +x {CONFORMANCE_TESTS_SCRIPT_SANDBOX_PATH}"
+    print(f"Executing change permissions command: {change_permissions_cmd}")
+    response = sandbox.process.exec(change_permissions_cmd, cwd=SANDBOX_TARGET_DIR)
+    print("change permissions response:", response.exit_code)
+    print("change permissions result:", response.result)
+
+
 # Example usage
 if __name__ == "__main__":
     # Get the user root directory in the sandbox
@@ -102,6 +122,8 @@ if __name__ == "__main__":
         upload_unittest_files(sandbox)
         run_unittest_script(sandbox)
 
+        # uploading and running conformance tests
+        upload_conformance_tests_files(sandbox)
     finally:
         # Clean up the Sandbox
         daytona.remove(sandbox)
