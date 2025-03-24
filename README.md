@@ -1,10 +1,10 @@
 # daytona-testing
 
-Testing https://www.daytona.io/
+Testing https://www.daytona.io/.
 
 ## Setup
 
-- Create venv from requirements.txt
+- Create `venv` from `requirements.txt` and activate it
 - `export DAYTONA_API_KEY=...`
 
 ## Example Workflows
