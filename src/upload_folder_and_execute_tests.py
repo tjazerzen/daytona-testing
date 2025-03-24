@@ -4,10 +4,10 @@ import os
 ROOT_DIR = "/home/daytona"
 BUILD_CODE_PATH = "build_code"
 SANDBOX_TARGET_DIR = f"{ROOT_DIR}/build_code"
-UNITTEST_SCRIPT_PATH = "run_unittests_python.sh"  # "/Users/tjazerzen/Documents/codeplain-ai/plain2code_client/test_scripts/run_unittests_python.sh"
+UNITTEST_SCRIPT_PATH = "run_unittests_python.sh"
 UNITTEST_SCRIPT_SANDBOX_NAME = "run_unittests_python.sh"
 UNITTEST_SCRIPT_SANDBOX_PATH = f"{SANDBOX_TARGET_DIR}/{UNITTEST_SCRIPT_SANDBOX_NAME}"
-CONFORMANCE_TESTS_SCRIPT_PATH = "run_conformance_tests_python.sh"  #  "/Users/tjazerzen/Documents/codeplain-ai/plain2code_client/test_scripts/run_conformance_tests_python.sh"
+CONFORMANCE_TESTS_SCRIPT_PATH = "run_conformance_tests_python.sh"
 CONFORMANCE_TESTS_SCRIPT_SANDBOX_NAME = "run_conformance_tests_python.sh"
 CONFORMANCE_TESTS_SCRIPT_SANDBOX_PATH = (
     f"{SANDBOX_TARGET_DIR}/{CONFORMANCE_TESTS_SCRIPT_SANDBOX_NAME}"
