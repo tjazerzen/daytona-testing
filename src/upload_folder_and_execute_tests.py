@@ -135,5 +135,5 @@ if __name__ == "__main__":
         run_conformance_tests_script(sandbox)
     finally:
         # Clean up the Sandbox
+        print("Cleaning up the sandbox")
         daytona.remove(sandbox)
-        pass
