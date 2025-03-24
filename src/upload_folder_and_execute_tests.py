@@ -89,3 +89,20 @@ def run_unittest_script(sandbox: Sandbox):
     print("unittest result:", response.result)
 
 
+# Example usage
+if __name__ == "__main__":
+    # Get the user root directory in the sandbox
+    daytona, sandbox = create_daytona_sandbox()
+
+    try:
+        # uploading python code to the sandbox
+        upload_repo_to_sandbox(sandbox)
+
+        # uploading and running unittests
+        upload_unittest_files(sandbox)
+        run_unittest_script(sandbox)
+
+    finally:
+        # Clean up the Sandbox
+        daytona.remove(sandbox)
+        pass
